@@ -28,16 +28,22 @@ function RealStateGrid() {
     if (completeList) {
       const newList = completeList.filter(
         (house) =>
-          (parseInt(context.state.bathrooms) === house.bathroom_amount ||
-            context.state.bathrooms === "all") &&
-          (parseInt(context.state.rooms) === house.room_amount ||
-            context.state.rooms === "all") &&
-          (parseInt(context.state.parking) === house.parking_lot_amount ||
-            context.state.parking === "all")
+          (parseInt(context.state.bathroom_amount) === house.bathroom_amount ||
+            context.state.bathroom_amount === "all") &&
+          (parseInt(context.state.room_amount) === house.room_amount ||
+            context.state.room_amount === "all") &&
+          (parseInt(context.state.parking_lot_amount) ===
+            house.parking_lot_amount ||
+            context.state.parking_lot_amount === "all")
       );
+
       rsListContext.update(newList);
     }
-  }, [context.state.bathrooms, context.state.rooms, context.state.parking]);
+  }, [
+    context.state.bathroom_amount,
+    context.state.room_amount,
+    context.state.parking_lot_amount,
+  ]);
 
   return (
     <div>
@@ -53,7 +59,6 @@ function RealStateGrid() {
               bathrooms={house.bathroom_amount}
               parking={house.parking_lot_amount}
               description={house.description}
-              key={house.id}
             />
           );
         })

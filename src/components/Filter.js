@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { FilterContext } from "../context/FilterContext";
 import { RSListContext } from "../context/RSListContext";
 
@@ -20,9 +20,11 @@ function Filter(props) {
         onChange={(event) => handleChange(event, props.field)}
       >
         <option value="all">Todas</option>
-        {rsContext.state && rsContext.state.length > 0
+        <option value="1">1</option>
+        <option value="2">2</option>
+        {/* {rsContext.state && rsContext.state.length > 0
           ? console.log(rsContext.state)
-          : null}
+          : null} */}
       </select>
     </div>
   );

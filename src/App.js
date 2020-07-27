@@ -9,9 +9,9 @@ import { RealStateGrid } from "./components/RealStateGrid";
 function App() {
   const [filters, setFilters] = useState({
     type: "all",
-    rooms: "all",
-    bathrooms: "all",
-    parking: "all",
+    room_amount: "all",
+    bathroom_amount: "all",
+    parking_lot_amount: "all",
   });
 
   function filterBy(field, option) {
@@ -21,7 +21,7 @@ function App() {
   const [rsList, setRSList] = useState([]);
 
   function updateList(newlist) {
-    setRSList([...rsList, ...newlist]);
+    setRSList(newlist);
   }
 
   return (
