@@ -25,7 +25,7 @@ function App() {
   }
 
   return (
-    <div className="containter">
+    <div className="containter-md">
       <FilterContext.Provider value={{ state: filters, update: filterBy }}>
         <RSListContext.Provider value={{ state: rsList, update: updateList }}>
           <div className="row">

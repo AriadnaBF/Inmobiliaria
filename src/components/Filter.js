@@ -1,10 +1,25 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FilterContext } from "../context/FilterContext";
 import { RSListContext } from "../context/RSListContext";
 
 function Filter(props) {
   const filterContext = useContext(FilterContext);
   const rsContext = useContext(RSListContext);
+  const [options, setOptions] = useState();
+
+  useEffect(() => {
+    let uniqueValues = new Set();
+    if (props.field === "type") {
+      rsContext.state.forEach((value) =>
+        uniqueValues.add(value[props.field].name)
+      );
+    } else {
+      rsContext.state.forEach((value) => uniqueValues.add(value[props.field]));
+    }
+    const valuesArray = [...uniqueValues];
+    const sortedArray = valuesArray.sort();
+    setOptions(sortedArray);
+  }, [rsContext]);
 
   function handleChange(event, field) {
     const value = event.target.value;
@@ -12,20 +27,20 @@ function Filter(props) {
   }
 
   return (
-    <div className="form-group d-flex">
-      <label>{props.label}</label>
-      <select
-        className="form-control"
-        value={filterContext.state[props.field]}
-        onChange={(event) => handleChange(event, props.field)}
-      >
-        <option value="all">Todas</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        {/* {rsContext.state && rsContext.state.length > 0
-          ? console.log(rsContext.state)
-          : null} */}
-      </select>
+    <div className="row form-group">
+      <label className="col-form-label">{props.label}</label>
+      <div className="col-auto">
+        <select
+          className="form-control"
+          value={filterContext.state[props.field]}
+          onChange={(event) => handleChange(event, props.field)}
+        >
+          <option value="all">Todas</option>
+          {options !== undefined
+            ? options.map((num) => <option value={num}>{num}</option>)
+            : null}
+        </select>
+      </div>
     </div>
   );
 }

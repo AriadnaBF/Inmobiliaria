@@ -20,6 +20,10 @@ function RealState(props) {
           <span className="font-weight-bold mr-2">Plazas parking:</span>
           <span>{props.parking}</span>
         </div>
+        <div>
+          <span className="font-weight-bold mr-2">Tipo de inmueble:</span>
+          <span>{props.type}</span>
+        </div>
         <p className="text-lowercase mr-2">{props.description}</p>
       </div>
     </div>
