@@ -3,7 +3,7 @@ import { Filter } from "./Filter";
 
 function FilterGrid() {
   return (
-    <div className="d-flex justify-content-around">
+    <div className="d-flex justify-content-around align-items-center mt-4 alert alert-info">
       <Filter label={"Tipo Inmueble"} field={"type"} />
       <Filter label={"Nº Habitaciones"} field={"room_amount"} />
       <Filter label={"Nº Baños"} field={"bathroom_amount"} />

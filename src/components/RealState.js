@@ -2,29 +2,42 @@ import React from "react";
 
 function RealState(props) {
   return (
-    <div className="row">
-      <div className="col-auto border border-secondary">
-        <img alt="foto casa" src={props.image} className="d-block mx-auto" />
-      </div>
-      <div className="col-8 border border-secondary">
-        <h3>{props.publication_title}</h3>
-        <div>
-          <span className="font-weight-bold mr-2">Habitaciones:</span>
-          <span>{props.rooms}</span>
+    <div class="col-10 mx-auto">
+      <div className="card border-info bg-white mb-3 cardwidth">
+        <div className="row no-gutters">
+          <div className="col-md-3">
+            <img src={props.image} className="card-img" alt="Foto casa" />
+          </div>
+          <div className="col-md-9">
+            <div className="card-header">
+              <h5 className="card-title">{props.publication_title}</h5>
+            </div>
+            <div className="card-body text-info">
+              <h6 className="card-text">
+                <span className="font-weight-bold mr-2">Tipo de inmueble:</span>{" "}
+                {props.type}
+              </h6>
+              <h6 className="card-text">
+                <span className="font-weight-bold mr-2">Habitaciones:</span>{" "}
+                {props.rooms}
+              </h6>
+              <h6 className="card-text">
+                <span className="font-weight-bold mr-2">Baños:</span>{" "}
+                {props.bathrooms}
+              </h6>
+              <h6 className="card-text">
+                <span className="font-weight-bold mr-2">
+                  Plazas aparcamiento:
+                </span>{" "}
+                {props.parking}
+              </h6>
+
+              <p className="card-text text-muted text-truncate">
+                <small className="text-muted">{props.description}</small>
+              </p>
+            </div>
+          </div>
         </div>
-        <div>
-          <span className="font-weight-bold mr-2">Baños:</span>
-          <span>{props.bathrooms}</span>
-        </div>
-        <div>
-          <span className="font-weight-bold mr-2">Plazas parking:</span>
-          <span>{props.parking}</span>
-        </div>
-        <div>
-          <span className="font-weight-bold mr-2">Tipo de inmueble:</span>
-          <span>{props.type}</span>
-        </div>
-        <p className="text-lowercase mr-2">{props.description}</p>
       </div>
     </div>
   );
