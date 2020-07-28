@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { FilterContext } from "../context/FilterContext";
 import { RSListContext } from "../context/RSListContext";
+import { DeleteButton } from "./DeleteButton";
 
 function Filter(props) {
   const filterContext = useContext(FilterContext);
@@ -26,10 +27,14 @@ function Filter(props) {
     filterContext.update(field, value);
   }
 
+  function clearField(field) {
+    filterContext.update(field, "all");
+  }
+
   return (
     <div className="row form-group">
       <label className="col-form-label">{props.label}</label>
-      <div className="col-auto">
+      <div className="col-auto d-flex">
         <select
           className="form-control"
           value={filterContext.state[props.field]}
@@ -40,6 +45,13 @@ function Filter(props) {
             ? options.map((num) => <option value={num}>{num}</option>)
             : null}
         </select>
+        {filterContext.state[props.field] !== "all" ? (
+          <DeleteButton
+            deletefunction={() => {
+              clearField(props.field);
+            }}
+          />
+        ) : null}
       </div>
     </div>
   );
