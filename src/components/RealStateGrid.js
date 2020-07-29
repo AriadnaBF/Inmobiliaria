@@ -3,11 +3,19 @@ import { RealState } from "./RealState";
 import { getRSList } from "../api/getRSList";
 import { FilterContext } from "../context/FilterContext";
 import { RSListContext } from "../context/RSListContext";
+import {
+  TYPE_FILTER,
+  ROOM_FILTER,
+  BATHROOM_FILTER,
+  PARKING_FILTER,
+} from "../constants/filter-constants";
 
 function RealStateGrid() {
   const [completeList, setCompleteList] = useState();
-  const context = useContext(FilterContext);
-  const rsListContext = useContext(RSListContext);
+  const { state: filter } = useContext(FilterContext);
+  const { state: listToShow, update: setListToShow } = useContext(
+    RSListContext
+  );
 
   useEffect(() => {
     async function fetchRSList() {
@@ -20,49 +28,49 @@ function RealStateGrid() {
 
   useEffect(() => {
     if (completeList) {
-      rsListContext.update(completeList);
+      setListToShow(completeList);
     }
   }, [completeList]);
+
+  const bathroom = filter[BATHROOM_FILTER];
+  const room = filter[ROOM_FILTER];
+  const parking = filter[PARKING_FILTER];
+  const type = filter[TYPE_FILTER];
 
   useEffect(() => {
     if (completeList) {
       const newList = completeList.filter(
         (house) =>
-          (parseInt(context.state.bathroom_amount) === house.bathroom_amount ||
-            context.state.bathroom_amount === "all") &&
-          (parseInt(context.state.room_amount) === house.room_amount ||
-            context.state.room_amount === "all") &&
-          (parseInt(context.state.parking_lot_amount) ===
-            house.parking_lot_amount ||
-            context.state.parking_lot_amount === "all") &&
-          (context.state.type === house.type.name ||
-            context.state.type === "all")
+          (parseInt(filter[BATHROOM_FILTER]) === house[BATHROOM_FILTER] ||
+            filter[BATHROOM_FILTER] === "all") &&
+          (parseInt(filter[ROOM_FILTER]) === house[ROOM_FILTER] ||
+            filter[ROOM_FILTER] === "all") &&
+          (parseInt(filter[PARKING_FILTER]) === house[PARKING_FILTER] ||
+            filter[PARKING_FILTER] === "all") &&
+          (filter[TYPE_FILTER] === house[TYPE_FILTER].name ||
+            filter[TYPE_FILTER] === "all")
       );
 
-      rsListContext.update(newList);
+      setListToShow(newList);
     }
-  }, [
-    context.state.bathroom_amount,
-    context.state.room_amount,
-    context.state.parking_lot_amount,
-    context.state.type,
-  ]);
+  }, [bathroom, room, parking, type]);
 
   return (
     <div>
-      {!rsListContext.state ? (
+      {!listToShow ? (
         <div>Cargando</div>
       ) : (
-        rsListContext.state.map((house) => {
+        listToShow.map((house) => {
           return (
             <RealState
               image={house.photos}
               publication_title={house.publication_title}
-              rooms={house.room_amount}
-              bathrooms={house.bathroom_amount}
-              parking={house.parking_lot_amount}
-              type={house.type.name}
+              rooms={house[ROOM_FILTER]}
+              bathrooms={house[BATHROOM_FILTER]}
+              parking={house[PARKING_FILTER]}
+              type={house[TYPE_FILTER].name}
               description={house.description}
+              key={house.id}
             />
           );
         })

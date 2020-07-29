@@ -2,7 +2,7 @@ import React from "react";
 
 function RealState(props) {
   return (
-    <div class="col-10 mx-auto">
+    <div className="col-10 mx-auto">
       <div className="card border-info bg-white mb-3 cardwidth">
         <div className="row no-gutters">
           <div className="col-md-3">

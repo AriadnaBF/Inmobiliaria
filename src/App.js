@@ -5,13 +5,19 @@ import { FilterGrid } from "./components/FilterGrid";
 import { FilterContext } from "./context/FilterContext";
 import { RSListContext } from "./context/RSListContext";
 import { RealStateGrid } from "./components/RealStateGrid";
+import {
+  TYPE_FILTER,
+  ROOM_FILTER,
+  BATHROOM_FILTER,
+  PARKING_FILTER,
+} from "./constants/filter-constants";
 
 function App() {
   const [filters, setFilters] = useState({
-    type: "all",
-    room_amount: "all",
-    bathroom_amount: "all",
-    parking_lot_amount: "all",
+    [TYPE_FILTER]: "all",
+    [ROOM_FILTER]: "all",
+    [BATHROOM_FILTER]: "all",
+    [PARKING_FILTER]: "all",
   });
 
   function filterBy(field, option) {
