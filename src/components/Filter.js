@@ -10,20 +10,20 @@ function Filter(props) {
   const { state: filters, update: setFilters } = useContext(FilterContext);
   const { field, label } = props;
 
-  const rsContext = useContext(RSListContext);
+  const { state: rsList } = useContext(RSListContext);
   const [options, setOptions] = useState();
 
   useEffect(() => {
     let uniqueValues = new Set();
     if (field === TYPE_FILTER) {
-      rsContext.state.forEach((value) => uniqueValues.add(value[field].name));
+      rsList.forEach((value) => uniqueValues.add(value[field].name));
     } else {
-      rsContext.state.forEach((value) => uniqueValues.add(value[field]));
+      rsList.forEach((value) => uniqueValues.add(value[field]));
     }
     const valuesArray = [...uniqueValues];
     const sortedArray = valuesArray.sort();
     setOptions(sortedArray);
-  }, [rsContext]);
+  }, [rsList]);
 
   function handleChange(event, myfield) {
     const value = event.target.value;

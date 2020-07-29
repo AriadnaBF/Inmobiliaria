@@ -9,6 +9,7 @@ import {
   BATHROOM_FILTER,
   PARKING_FILTER,
 } from "../constants/filter-constants";
+import { DEFAULT_VALUE } from "../constants/value-constant";
 
 function RealStateGrid() {
   const [completeList, setCompleteList] = useState();
@@ -42,13 +43,13 @@ function RealStateGrid() {
       const newList = completeList.filter(
         (house) =>
           (parseInt(filter[BATHROOM_FILTER]) === house[BATHROOM_FILTER] ||
-            filter[BATHROOM_FILTER] === "all") &&
+            filter[BATHROOM_FILTER] === DEFAULT_VALUE) &&
           (parseInt(filter[ROOM_FILTER]) === house[ROOM_FILTER] ||
-            filter[ROOM_FILTER] === "all") &&
+            filter[ROOM_FILTER] === DEFAULT_VALUE) &&
           (parseInt(filter[PARKING_FILTER]) === house[PARKING_FILTER] ||
-            filter[PARKING_FILTER] === "all") &&
+            filter[PARKING_FILTER] === DEFAULT_VALUE) &&
           (filter[TYPE_FILTER] === house[TYPE_FILTER].name ||
-            filter[TYPE_FILTER] === "all")
+            filter[TYPE_FILTER] === DEFAULT_VALUE)
       );
 
       setListToShow(newList);
